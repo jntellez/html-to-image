@@ -1,8 +1,14 @@
+import { ThemeProvider } from "./components/theme-provider"
+import { Button } from "@/components/ui/button"
+
 function App() {
   return (
-    <div className="w-full flex justify-center items-center">
-      <h1 className="text-2xl font-bold">Html To Image</h1>
-    </div>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="flex min-h-svh flex-col items-center justify-center">
+        <Button>Click me</Button>
+      </div>
+    </ThemeProvider>
+
   )
 }
 
