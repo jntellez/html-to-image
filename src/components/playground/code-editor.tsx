@@ -16,15 +16,13 @@ const getActualTheme = (theme: string): "light" | "dark" => {
 };
 
 export function CodeEditor({ value, onChange, languague }: HtmlCodeProps) {
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const monacoRef = useRef<typeof monaco | null>(null);
   const { theme } = useTheme();
 
-  const handleEditorMount: OnMount = (editor, monacoInstance) => {
-    editorRef.current = editor;
+  const handleEditorMount: OnMount = (_editor, monacoInstance) => {
     monacoRef.current = monacoInstance;
 
-    monacoInstance.editor.defineTheme("customLight", {
+    monacoInstance.editor.defineTheme("light", {
       base: "vs",
       inherit: true,
       rules: [],
@@ -34,7 +32,7 @@ export function CodeEditor({ value, onChange, languague }: HtmlCodeProps) {
       },
     });
 
-    monacoInstance.editor.defineTheme("customDark", {
+    monacoInstance.editor.defineTheme("dark", {
       base: "vs-dark",
       inherit: true,
       rules: [],
@@ -44,31 +42,32 @@ export function CodeEditor({ value, onChange, languague }: HtmlCodeProps) {
       },
     });
 
-    monacoInstance.editor.setTheme(getActualTheme(theme) === "dark" ? "customDark" : "customLight");
+    monacoInstance.editor.setTheme(getActualTheme(theme));
   };
 
   useEffect(() => {
     if (monacoRef.current) {
-      monacoRef.current.editor.setTheme(getActualTheme(theme) === "dark" ? "customDark" : "customLight");
+      monacoRef.current.editor.setTheme(getActualTheme(theme));
     }
   }, [theme]);
 
   return (
-    <div className="pt-6 dark:bg-muted bg-white">
-      <Editor
-        height="300px"
-        defaultLanguage={languague}
-        theme={getActualTheme(theme) === "dark" ? "customDark" : "customLight"}
-        value={value}
-        onChange={(newValue) => onChange(newValue ?? "")}
-        options={{
-          fontSize: 14,
-          minimap: { enabled: false },
-          codeLens: true,
-          contextmenu: false,
-        }}
-        onMount={handleEditorMount}
-      />
-    </div>
+    <Editor
+      height="300px"
+      defaultLanguage={languague}
+      theme={getActualTheme(theme)}
+      value={value}
+      onChange={(newValue) => onChange(newValue ?? "")}
+      options={{
+        fontSize: 14,
+        minimap: { enabled: false },
+        codeLens: true,
+        contextmenu: false,
+      }}
+      onMount={handleEditorMount}
+      loading={
+        <div className="pt-6 dark:bg-muted bg-white w-full h-full"></div>
+      }
+    />
   );
 }
