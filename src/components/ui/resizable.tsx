@@ -28,11 +28,25 @@ function ResizablePanel({
 
 function ResizableHandle({
   withHandle,
+  transparent,
   className,
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
   withHandle?: boolean
+  transparent?: boolean
 }) {
+  if (transparent) return (
+    <ResizablePrimitive.PanelResizeHandle
+      data-slot="resizable-handle"
+      className={cn(
+        "bg-transparent w-[0px] cursor-col-resize data-[panel-group-direction=vertical]:cursor-row-resize",
+        "data-[panel-group-direction=vertical]:h-[0px] data-[panel-group-direction=vertical]:w-full",
+        "focus-visible:outline-none",
+        className
+      )}
+      {...props}
+    />
+  )
   return (
     <ResizablePrimitive.PanelResizeHandle
       data-slot="resizable-handle"

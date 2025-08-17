@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <header className="w-full border-b px-4 py-3 mb-2 flex items-center justify-between bg-background">
+    <header className="w-full border-b px-4 py-3 flex items-center justify-between bg-background">
       <Link to="/" className="text-lg font-semibold">
         HTML to Image
       </Link>

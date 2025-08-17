@@ -5,57 +5,62 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable"
 import { useState } from "react"
-import { FileCode, Palette } from "lucide-react"
+import { MonacoEditor } from "./monaco-editor"
+import { Card } from "../ui/card"
 
-type EditorLayoutProps = {
-  htmlEditor: React.ReactNode
-  cssEditor: React.ReactNode
+interface EditorPanelProps {
+  htmlCode: string
+  cssCode: string
+  onHtmlChange: (code: string) => void
+  onCssChange: (code: string) => void
 }
 
-export default function EditorLayout({ htmlEditor, cssEditor }: EditorLayoutProps) {
-  const [view, setView] = useState<"html" | "css" | "split">("html")
+export function EditorLayout({ htmlCode, cssCode, onHtmlChange, onCssChange }: EditorPanelProps) {
+  const [activeTab, setActiveTab] = useState("html")
 
   return (
-    <div className="flex flex-col w-full h-full">
-      <Tabs value={view} onValueChange={(val) => setView(val as typeof view)} className="w-full gap-0">
-        <TabsList className="">
-          <TabsTrigger
-            value="html"
-            className="border-r-[1px] border-r-background/50 flex items-center gap-2"
-          >
-            <FileCode className="w-4 h-4" />
-            html
-          </TabsTrigger>
-          <TabsTrigger
-            value="css"
-            className="border-r-[1px] border-r-background/50 flex items-center gap-2"
-          >
-            <Palette className="w-4 h-4" />
-            css
-          </TabsTrigger>
-          <TabsTrigger value="split" className="">Split View</TabsTrigger>
+    <Card className="rounded-none border-0 border-r p-0">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col gap-0">
+        <TabsList className="rounded-none border-b bg-muted/50">
+          <TabsTrigger value="html">HTML</TabsTrigger>
+          <TabsTrigger value="css">CSS</TabsTrigger>
+          <TabsTrigger value="split">Split</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="html" className="">
-          {htmlEditor}
-        </TabsContent>
+        <div className="flex-1 overflow-hidden">
+          <TabsContent value="html" className="h-full m-0">
+            <MonacoEditor value={htmlCode} onChange={onHtmlChange} language="html" />
+          </TabsContent>
 
-        <TabsContent value="css" className="">
-          {cssEditor}
-        </TabsContent>
+          <TabsContent value="css" className="h-full m-0">
+            <MonacoEditor value={cssCode} onChange={onCssChange} language="css" />
+          </TabsContent>
 
-        <TabsContent value="split" className="h-[600px]">
-          <ResizablePanelGroup direction="horizontal" className="w-full h-full">
-            <ResizablePanel defaultSize={50} minSize={20}>
-              {htmlEditor}
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={50} minSize={20}>
-              {cssEditor}
-            </ResizablePanel>
-          </ResizablePanelGroup>
-        </TabsContent>
+          <TabsContent value="split" className="h-full m-0">
+            <div className="h-full flex flex-col">
+              <ResizablePanelGroup direction="vertical">
+                <ResizablePanel>
+                  <div className="h-full flex-1 border-b">
+                    <div className="text-xs font-medium p-2 bg-muted/50 border-b">HTML</div>
+                    <div className="h-[calc(100%-2rem)] mb-2">
+                      <MonacoEditor value={htmlCode} onChange={onHtmlChange} language="html" />
+                    </div>
+                  </div>
+                </ResizablePanel>
+                <ResizableHandle transparent />
+                <ResizablePanel>
+                  <div className="h-full flex-1">
+                    <div className="text-xs font-medium p-2 bg-muted/50 border-b">CSS</div>
+                    <div className="h-[calc(100%-2rem)]">
+                      <MonacoEditor value={cssCode} onChange={onCssChange} language="css" />
+                    </div>
+                  </div>
+                </ResizablePanel>
+              </ResizablePanelGroup>
+            </div>
+          </TabsContent>
+        </div>
       </Tabs>
-    </div>
+    </Card>
   )
 }
