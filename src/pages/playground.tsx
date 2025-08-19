@@ -1,21 +1,81 @@
-import { useState } from "react";
-import { Preview } from "@/components/playground/preview";
-import { EditorLayout } from "@/components/playground/editor-layout";
+import { useState } from "react"
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
+import { EditorLayout } from "@/components/playground/editor-layout"
+import OptionsPanel from "@/components/playground/options-panel"
+import { Preview } from "@/components/playground/preview"
+import { useHeader } from "@/contexts/header-context"
 
-export default function PlaygroundPage() {
-  const [html, setHtml] = useState("<div class='text-3xl font-bold'>Hola mundo</div>");
-  const [css, setCss] = useState("");
+const defaultHtml = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #000; color: white; font-family: Arial, sans-serif;">
+  <svg width="75" height="65" viewBox="0 0 75 65" fill="#000" style="margin-bottom: 20px;">
+    <path d="M37.59 25136.95 64H.64136.95-64Z" fill="white"/>
+  </svg>
+  <div style="font-size: 32px; font-weight: 600;">Hello, World</div>
+</div>`
+
+const defaultCss = `body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}`
+
+export default function Playground() {
+  const [htmlCode, setHtmlCode] = useState(defaultHtml)
+  const [cssCode, setCssCode] = useState(defaultCss)
+  const { isVerticalLayout } = useHeader()
+  const [canvasWidth, setCanvasWidth] = useState(800)
+  const [canvasHeight, setCanvasHeight] = useState(400)
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff")
+  const [isTransparent, setIsTransparent] = useState(false)
+  const [exportFormat, setExportFormat] = useState("png")
+  const [fileName, setFileName] = useState("image")
 
   return (
-    <main className="min-h-[calc(100vh-61px)] flex flex-row">
-      <EditorLayout
-        htmlCode={html}
-        cssCode={css}
-        onHtmlChange={setHtml}
-        onCssChange={setCss}
-      />
+    <div className="h-[calc(100vh-61px)] flex flex-col">
+      <div className="flex-1 overflow-hidden">
+        <ResizablePanelGroup direction="horizontal" className="h-full">
+          <ResizablePanel defaultSize={40} minSize={25} maxSize={65}>
+            <EditorLayout htmlCode={htmlCode} cssCode={cssCode} onHtmlChange={setHtmlCode} onCssChange={setCssCode} />
+          </ResizablePanel>
 
-      <Preview html={html} css={css} />
-    </main>
-  );
+          <ResizableHandle withHandle />
+
+          <ResizablePanel defaultSize={60} minSize={30}>
+            <ResizablePanelGroup direction={isVerticalLayout ? "vertical" : "horizontal"} className="h-full">
+              <ResizablePanel defaultSize={70} minSize={isVerticalLayout ? 40 : 50}>
+                <Preview
+                  htmlCode={htmlCode}
+                  cssCode={cssCode}
+                  canvasWidth={canvasWidth}
+                  canvasHeight={canvasHeight}
+                  backgroundColor={backgroundColor}
+                  isTransparent={isTransparent}
+                />
+              </ResizablePanel>
+
+              <ResizableHandle withHandle />
+
+              <ResizablePanel defaultSize={30} minSize={25}>
+                {/* <OptionsPanel
+                  canvasWidth={canvasWidth}
+                  canvasHeight={canvasHeight}
+                  backgroundColor={backgroundColor}
+                  isTransparent={isTransparent}
+                  exportFormat={exportFormat}
+                  fileName={fileName}
+                  onCanvasWidthChange={setCanvasWidth}
+                  onCanvasHeightChange={setCanvasHeight}
+                  onBackgroundColorChange={setBackgroundColor}
+                  onTransparentChange={setIsTransparent}
+                  onExportFormatChange={setExportFormat}
+                  onFileNameChange={setFileName}
+                  htmlCode={htmlCode}
+                  cssCode={cssCode}
+                /> */}
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
+    </div>
+  )
 }
