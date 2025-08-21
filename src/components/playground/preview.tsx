@@ -77,20 +77,39 @@ export function Preview({
     const availableWidth = container.clientWidth
     const availableHeight = container.clientHeight
 
+    // calculate raw scales
     const scaleX = availableWidth / canvasWidth
     const scaleY = availableHeight / canvasHeight
-    const scale = Math.min(scaleX, scaleY, 1) // return smaller
 
-    // set scaler size
+    let scale: number
+    let scaledWidth: number
+    let scaledHeight: number
+
+    if (scaleY <= scaleX) {
+      // limit by height → snap to integer height
+      const targetHeight = Math.floor(canvasHeight * scaleY)
+      scale = targetHeight / canvasHeight
+      scaledHeight = targetHeight
+      scaledWidth = Math.round(canvasWidth * scale)
+    } else {
+      // limit by width → snap to integer width
+      const targetWidth = Math.floor(canvasWidth * scaleX)
+      scale = targetWidth / canvasWidth
+      scaledWidth = targetWidth
+      scaledHeight = Math.round(canvasHeight * scale)
+    }
+
+    // set scaler size (real unscaled dimensions)
     scaler.style.width = `${canvasWidth}px`
     scaler.style.height = `${canvasHeight}px`
-    // set scaler scale
     scaler.style.transform = `scale(${scale})`
     scaler.style.transformOrigin = "top left"
+    scaler.style.willChange = "transform"
 
-    // set scaled size (calc)
-    wrapper.style.width = `${canvasWidth * scale}px`
-    wrapper.style.height = `${canvasHeight * scale}px`
+    // set wrapper size (scaled dimensions, snapped to integers)
+    wrapper.style.width = `${scaledWidth}px`
+    wrapper.style.height = `${scaledHeight}px`
+    wrapper.style.overflow = "hidden"
   }, [canvasWidth, canvasHeight])
 
   useEffect(() => {
@@ -121,8 +140,13 @@ export function Preview({
             <div ref={scalerRef} className="block">
               <iframe
                 ref={iframeRef}
-                style={{ width: "100%", height: "100%", display: "block" }}
-                className={isTransparent ? "" : "bg-white"}
+                style={{
+                  width: `${canvasWidth}px`,
+                  height: `${canvasHeight}px`,
+                  display: "block",
+                  border: 0,
+                  background: isTransparent ? "transparent" : backgroundColor,
+                }}
               />
             </div>
           </div>
