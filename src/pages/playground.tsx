@@ -27,21 +27,21 @@ export default function Playground() {
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
   const [isTransparent, setIsTransparent] = useState(false)
   const [exportFormat, setExportFormat] = useState("png")
-  const [fileName, setFileName] = useState("image")
+  const [fileName, setFileName] = useState("html-image")
 
   return (
     <div className="h-[calc(100vh-61px)] flex flex-col">
       <div className="flex-1 overflow-hidden">
         <ResizablePanelGroup direction="horizontal" className="h-full">
-          <ResizablePanel defaultSize={40} minSize={25} maxSize={65}>
+          <ResizablePanel defaultSize={50} minSize={25} maxSize={65}>
             <EditorLayout htmlCode={htmlCode} cssCode={cssCode} onHtmlChange={setHtmlCode} onCssChange={setCssCode} />
           </ResizablePanel>
 
           <ResizableHandle withHandle />
 
-          <ResizablePanel defaultSize={60} minSize={30}>
-            <ResizablePanelGroup direction={isVerticalLayout ? "vertical" : "horizontal"} className="h-full">
-              <ResizablePanel defaultSize={70} minSize={isVerticalLayout ? 40 : 50}>
+          <ResizablePanel defaultSize={50} minSize={30}>
+            <ResizablePanelGroup direction={isVerticalLayout ? "horizontal" : "vertical"} className="h-full">
+              <ResizablePanel defaultSize={53} minSize={isVerticalLayout ? 40 : 50}>
                 <Preview
                   htmlCode={htmlCode}
                   cssCode={cssCode}
@@ -54,8 +54,8 @@ export default function Playground() {
 
               <ResizableHandle withHandle />
 
-              <ResizablePanel defaultSize={30} minSize={25}>
-                {/* <OptionsPanel
+              <ResizablePanel defaultSize={47} minSize={25}>
+                <OptionsPanel
                   canvasWidth={canvasWidth}
                   canvasHeight={canvasHeight}
                   backgroundColor={backgroundColor}
@@ -70,7 +70,7 @@ export default function Playground() {
                   onFileNameChange={setFileName}
                   htmlCode={htmlCode}
                   cssCode={cssCode}
-                /> */}
+                />
               </ResizablePanel>
             </ResizablePanelGroup>
           </ResizablePanel>
