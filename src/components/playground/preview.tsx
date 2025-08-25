@@ -122,7 +122,7 @@ export function Preview({
   return (
     <Card className="h-full rounded-none border-0 py-0">
       <div className="h-full flex flex-col min-h-0">
-        <div className="flex justify-between items-center p-4 border-b bg-muted/50">
+        <div className="flex justify-between items-center px-4 py-3 border-b bg-muted/50">
           <h3 className="text-sm font-medium flex items-center gap-2">
             <Monitor className="h-4 w-4" />
             Preview
