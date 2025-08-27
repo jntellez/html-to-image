@@ -18,12 +18,9 @@ export default function Home() {
           previsualizaciones, capturas de pantalla y contenido visual.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" onClick={() => navigate("/playground")} className="text-lg px-8">
+          <Button size="lg" onClick={() => navigate("/playground")} className="text-lg px-8 cursor-pointer">
             Comenzar Ahora
             <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent">
-            Ver Demo
           </Button>
         </div>
       </section>
@@ -95,16 +92,6 @@ export default function Home() {
             <p className="text-muted-foreground">Exporta tu imagen en el formato deseado con un solo clic</p>
           </div>
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-muted rounded-lg p-8 text-center space-y-4">
-        <h2 className="text-2xl font-bold">¿Listo para Comenzar?</h2>
-        <p className="text-muted-foreground">Únete a miles de desarrolladores que ya usan nuestra herramienta</p>
-        <Button size="lg" onClick={() => navigate("/playground")}>
-          Probar Gratis
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
       </section>
     </div>
   )

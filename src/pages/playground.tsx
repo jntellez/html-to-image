@@ -32,8 +32,13 @@ export default function Playground() {
   return (
     <div className="h-[calc(100vh-61px)] flex flex-col">
       <div className="flex-1 overflow-hidden">
-        <ResizablePanelGroup direction="horizontal" className="h-full">
-          <ResizablePanel defaultSize={50} minSize={25} maxSize={65}>
+        <ResizablePanelGroup direction="horizontal" className="h-full min-h-0 min-w-0">
+          <ResizablePanel
+            defaultSize={50}
+            minSize={25}
+            maxSize={65}
+            className="flex flex-col min-h-0 min-w-0"
+          >
             <EditorLayout htmlCode={htmlCode} cssCode={cssCode} onHtmlChange={setHtmlCode} onCssChange={setCssCode} />
           </ResizablePanel>
 
@@ -41,7 +46,7 @@ export default function Playground() {
 
           <ResizablePanel defaultSize={50} minSize={30}>
             <ResizablePanelGroup direction={isVerticalLayout ? "horizontal" : "vertical"} className="h-full">
-              <ResizablePanel defaultSize={53} minSize={isVerticalLayout ? 40 : 50}>
+              <ResizablePanel defaultSize={50} minSize={isVerticalLayout ? 50 : 40}>
                 <Preview
                   htmlCode={htmlCode}
                   cssCode={cssCode}
