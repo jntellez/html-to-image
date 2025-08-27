@@ -74,6 +74,9 @@ importers:
       tailwindcss:
         specifier: ^4.1.11
         version: 4.1.11
+      use-debounce:
+        specifier: ^10.0.5
+        version: 10.0.5(react@19.1.1)
     devDependencies:
       '@eslint/js':
         specifier: ^9.30.1
@@ -1907,6 +1910,12 @@ packages:
       '@types/react':
         optional: true
 
+  use-debounce@10.0.5:
+    resolution: {integrity: sha512-Q76E3lnIV+4YT9AHcrHEHYmAd9LKwUAbPXDm7FlqVGDHiSOhX3RDjT8dm0AxbJup6WgOb1YEcKyCr11kBJR5KQ==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
+
   use-sidecar@1.1.3:
     resolution: {integrity: sha512-Fedw0aZvkhynoPYlA5WXrMCAMm+nSWdZt6lzJQ7Ok8S6Q+VsHmHpRWndVRJ8Be0ZbkfPc5LRYH+5XrzXcEeLRQ==}
     engines: {node: '>=10'}
@@ -3643,6 +3652,10 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.1.9
+
+  use-debounce@10.0.5(react@19.1.1):
+    dependencies:
+      react: 19.1.1
 
   use-sidecar@1.1.3(@types/react@19.1.9)(react@19.1.1):
     dependencies:

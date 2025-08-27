@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from "react"
 import { Card } from "@/components/ui/card"
 import { Monitor } from "lucide-react"
+import { useDebouncedCallback } from "use-debounce"
 
 interface PreviewPanelProps {
   htmlCode: string
@@ -23,7 +24,6 @@ export function Preview({
   const wrapperRef = useRef<HTMLDivElement>(null)
   const scalerRef = useRef<HTMLDivElement>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
-  const updateTimeoutRef = useRef<NodeJS.Timeout>()
 
   const updateIframe = useCallback(() => {
     const iframe = iframeRef.current
@@ -57,15 +57,11 @@ export function Preview({
     doc.body.innerHTML = htmlCode
   }, [htmlCode, cssCode, canvasWidth, canvasHeight, backgroundColor, isTransparent])
 
-  const debouncedUpdate = useCallback(() => {
-    if (updateTimeoutRef.current) clearTimeout(updateTimeoutRef.current)
-    updateTimeoutRef.current = setTimeout(updateIframe, 200)
-  }, [updateIframe])
+  const debouncedUpdateIframe = useDebouncedCallback(updateIframe, 200)
 
   useEffect(() => {
-    debouncedUpdate()
-    return () => updateTimeoutRef.current && clearTimeout(updateTimeoutRef.current)
-  }, [debouncedUpdate])
+    debouncedUpdateIframe()
+  }, [htmlCode, cssCode, canvasWidth, canvasHeight, backgroundColor, isTransparent, debouncedUpdateIframe])
 
   const updateScale = useCallback(() => {
     const container = containerRef.current
