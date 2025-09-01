@@ -132,7 +132,7 @@ export function Preview({
           ref={containerRef}
           className="flex-1 grid place-items-center overflow-hidden relative min-w-0 min-h-0"
         >
-          <div ref={wrapperRef} className="block">
+          <div id="preview-exportable" ref={wrapperRef} className="block">
             <div ref={scalerRef} className="block">
               <iframe
                 ref={iframeRef}

@@ -26,7 +26,7 @@ export default function Playground() {
   const [canvasHeight, setCanvasHeight] = useState(400)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
   const [isTransparent, setIsTransparent] = useState(false)
-  const [exportFormat, setExportFormat] = useState("png")
+  const [exportFormat, setExportFormat] = useState<"png" | "jpeg" | "svg">("png");
   const [fileName, setFileName] = useState("html-image")
 
   return (
@@ -73,8 +73,6 @@ export default function Playground() {
                   onTransparentChange={setIsTransparent}
                   onExportFormatChange={setExportFormat}
                   onFileNameChange={setFileName}
-                  htmlCode={htmlCode}
-                  cssCode={cssCode}
                 />
               </ResizablePanel>
             </ResizablePanelGroup>

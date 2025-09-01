@@ -7,22 +7,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Download, Settings } from "lucide-react"
 import { ScrollArea } from "../ui/scroll-area"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
+import { convertToImage } from "@/lib/html-to-image"
 
 interface OptionsPanelProps {
   canvasWidth: number
   canvasHeight: number
   backgroundColor: string
   isTransparent: boolean
-  exportFormat: string
+  exportFormat: "png" | "jpeg" | "svg"
   fileName: string
   onCanvasWidthChange: (width: number) => void
   onCanvasHeightChange: (height: number) => void
   onBackgroundColorChange: (color: string) => void
   onTransparentChange: (transparent: boolean) => void
-  onExportFormatChange: (format: string) => void
+  onExportFormatChange: (format: "png" | "jpeg" | "svg") => void;
   onFileNameChange: (name: string) => void
-  htmlCode: string
-  cssCode: string
 }
 
 export default function OptionsPanel({
@@ -37,13 +36,39 @@ export default function OptionsPanel({
   onBackgroundColorChange,
   onTransparentChange,
   onExportFormatChange,
-  onFileNameChange,
-  htmlCode,
-  cssCode,
+  onFileNameChange
 }: OptionsPanelProps) {
-  const handleExport = () => {
-    return { htmlCode, cssCode }
-  }
+  const handleExport = async () => {
+    try {
+      const previewNode = document.getElementById("preview-exportable");
+      if (!previewNode) return;
+
+      const blob = await convertToImage({
+        node: previewNode,
+        format: exportFormat,
+        backgroundColor: isTransparent ? "transparent" : backgroundColor,
+        width: canvasWidth,
+        height: canvasHeight,
+        quality: 1,
+        pixelRatio: 1,
+      });
+
+
+      if (!blob) return;
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${fileName}.${exportFormat}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error al exportar la imagen:", error);
+    }
+  };
+
 
   return (
     <Card className="h-full rounded-none border-0 flex flex-col p-0 gap-0">
@@ -171,7 +196,7 @@ export default function OptionsPanel({
                     <SelectContent>
                       <SelectItem value="png">PNG</SelectItem>
                       <SelectItem value="jpeg">JPEG</SelectItem>
-                      <SelectItem value="webp">WebP</SelectItem>
+                      <SelectItem value="svg">SVG</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
