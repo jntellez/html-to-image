@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Download, Settings } from "lucide-react"
 import { ScrollArea } from "../ui/scroll-area"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
-import { convertToImage } from "@/lib/html-to-image"
+import { handleDownload, type handleDownloadProps } from "@/lib/html-to-image"
 
 interface OptionsPanelProps {
   canvasWidth: number
@@ -38,37 +38,7 @@ export default function OptionsPanel({
   onExportFormatChange,
   onFileNameChange
 }: OptionsPanelProps) {
-  const handleExport = async () => {
-    try {
-      const previewNode = document.getElementById("preview-exportable");
-      if (!previewNode) return;
-
-      const blob = await convertToImage({
-        node: previewNode,
-        format: exportFormat,
-        backgroundColor: isTransparent ? "transparent" : backgroundColor,
-        width: canvasWidth,
-        height: canvasHeight,
-        quality: 1,
-        pixelRatio: 1,
-      });
-
-
-      if (!blob) return;
-
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${fileName}.${exportFormat}`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error al exportar la imagen:", error);
-    }
-  };
-
+  const options: handleDownloadProps = { canvasHeight, canvasWidth, backgroundColor, isTransparent, exportFormat, fileName }
 
   return (
     <Card className="h-full rounded-none border-0 flex flex-col p-0 gap-0">
@@ -215,7 +185,7 @@ export default function OptionsPanel({
                 </div>
 
                 <Button
-                  onClick={handleExport}
+                  onClick={() => handleDownload(options)}
                   className="w-full h-8 text-sm cursor-pointer"
                   size="sm"
                 >

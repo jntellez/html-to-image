@@ -6,17 +6,19 @@ import { Preview } from "@/components/playground/preview"
 import { useHeader } from "@/contexts/header-context"
 
 const defaultHtml = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #000; color: white; font-family: Arial, sans-serif;">
-  <svg width="75" height="65" viewBox="0 0 75 65" fill="#000" style="margin-bottom: 20px;">
-    <path d="M37.59 25136.95 64H.64136.95-64Z" fill="white"/>
+  <svg width="75" height="65" viewBox="0 0 75 65" fill="none" style="margin-bottom: 20px;">
+    <path d="M37.5 0 L75 65 H0 Z" fill="white"/>
   </svg>
   <div style="font-size: 32px; font-weight: 600;">Hello, World</div>
-</div>`
+</div>
+`;
 
 const defaultCss = `body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-}`
+}
+`;
 
 export default function Playground() {
   const [htmlCode, setHtmlCode] = useState(defaultHtml)
