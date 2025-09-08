@@ -26,36 +26,47 @@ export function Preview({
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const updateIframe = useCallback(() => {
-    const iframe = iframeRef.current
-    if (!iframe) return
-    // get iframe content (html document)
-    const doc = iframe.contentDocument || iframe.contentWindow?.document
-    if (!doc) return
+    const iframe = iframeRef.current;
+    if (!iframe) return;
 
-    // add user options to css styles
+    const doc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (!doc) return;
+
     const fullCss = `
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body {
-        width: ${canvasWidth}px;
-        height: ${canvasHeight}px;
-        background: ${isTransparent ? "transparent" : backgroundColor};
-        overflow: hidden;
-      }
-      ${cssCode}
-    `
-
-    // gets the styles tag and if it doesn't exist creates it
-    let styleTag = doc.getElementById("preview-style") as HTMLStyleElement | null
-    if (!styleTag) {
-      styleTag = doc.createElement("style")
-      styleTag.id = "preview-style"
-      doc.head.appendChild(styleTag)
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: ${canvasWidth}px;
+      height: ${canvasHeight}px;
+      background: ${isTransparent ? "transparent" : backgroundColor};
+      overflow: hidden;
     }
-    styleTag.textContent = fullCss
+    ${cssCode}
+  `;
 
-    // add html code to the document
-    doc.body.innerHTML = htmlCode
-  }, [htmlCode, cssCode, canvasWidth, canvasHeight, backgroundColor, isTransparent])
+    doc.open();
+    doc.write(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style id="preview-style">${fullCss}</style>
+      </head>
+      <body>${htmlCode}</body>
+    </html>
+  `);
+    doc.close();
+
+    const scripts = doc.querySelectorAll("script");
+    scripts.forEach((oldScript) => {
+      const newScript = doc.createElement("script");
+      if (oldScript.src) {
+        newScript.src = oldScript.src;
+      } else {
+        newScript.textContent = oldScript.textContent;
+      }
+      oldScript.replaceWith(newScript);
+    });
+  }, [htmlCode, cssCode, canvasWidth, canvasHeight, backgroundColor, isTransparent]);
+
 
   const debouncedUpdateIframe = useDebouncedCallback(updateIframe, 200)
 
