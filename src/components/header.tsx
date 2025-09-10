@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Link, useLocation } from "react-router-dom";
 import { useHeader } from "@/contexts/header-context";
-import { Columns, Rows } from "lucide-react";
+import { Columns, Image, Rows } from "lucide-react";
 
 export function Header() {
   const { isVerticalLayout, setIsVerticalLayout } = useHeader()
@@ -11,15 +11,15 @@ export function Header() {
   const isPlaygroundPage = location.pathname === "/playground"
 
   return (
-    <header className="w-full border-b px-4 py-3 flex items-center justify-between bg-background">
-      <Link to="/" className="text-lg font-semibold">
-        HTML to Image
+    <header className="w-full border-b px-4 py-3 flex items-center justify-between bg-muted/70">
+      <Link to="/" className="flex items-center gap-2 text-lg font-bold">
+        <div className="h-8 w-8 flex items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-amber-400 text-white shadow-md">
+          <Image className="h-4 w-4" />
+        </div>
+        <span>HTML to Image</span>
       </Link>
 
       <nav className="flex items-center gap-2">
-        <Link to="/playground">
-          <Button variant="ghost">Playground</Button>
-        </Link>
         {isPlaygroundPage && (
           <Button variant="secondary" size="icon" onClick={() => setIsVerticalLayout(!isVerticalLayout)}>
             {isVerticalLayout ?
