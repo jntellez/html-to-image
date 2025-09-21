@@ -2,10 +2,17 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Link, useLocation } from "react-router-dom";
 import { useHeader } from "@/contexts/header-context";
-import { Columns, Image, Rows } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Columns, Download, Image, Rows } from "lucide-react"
+import { handleDownload } from "@/lib/html-to-image";
 
 export function Header() {
-  const { isVerticalLayout, setIsVerticalLayout } = useHeader()
+  const { isVerticalLayout, setIsVerticalLayout, downloadOptions } = useHeader()
   const location = useLocation()
 
   const isPlaygroundPage = location.pathname === "/playground"
@@ -21,13 +28,34 @@ export function Header() {
 
       <nav className="flex items-center gap-2">
         {isPlaygroundPage && (
-          <Button variant="secondary" size="icon" onClick={() => setIsVerticalLayout(!isVerticalLayout)}>
-            {isVerticalLayout ?
-              <Columns className="h-4 w-4" />
-              :
-              <Rows className="h-4 w-4" />
-            }
-          </Button>
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary">
+                  <Download className="h-4 w-4" />
+                  Export Image
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => handleDownload({ ...downloadOptions, exportFormat: "png" })}>
+                  PNG
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleDownload({ ...downloadOptions, exportFormat: "jpeg" })}>
+                  JPEG
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleDownload({ ...downloadOptions, exportFormat: "svg" })}>
+                  SVG
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button variant="ghost" size="icon" onClick={() => setIsVerticalLayout(!isVerticalLayout)}>
+              {isVerticalLayout ?
+                <Columns className="h-4 w-4" />
+                :
+                <Rows className="h-4 w-4" />
+              }
+            </Button>
+          </>
         )}
         <ModeToggle />
       </nav>

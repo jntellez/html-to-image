@@ -8,6 +8,8 @@ import { Download, Settings } from "lucide-react"
 import { ScrollArea } from "../ui/scroll-area"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
 import { handleDownload, type handleDownloadProps } from "@/lib/html-to-image"
+import { useEffect, useMemo } from "react"
+import { useHeader } from "@/contexts/header-context"
 
 interface OptionsPanelProps {
   canvasWidth: number
@@ -38,7 +40,28 @@ export default function OptionsPanel({
   onExportFormatChange,
   onFileNameChange
 }: OptionsPanelProps) {
-  const options: handleDownloadProps = { canvasHeight, canvasWidth, backgroundColor, isTransparent, exportFormat, fileName }
+  const { setDownloadOptions } = useHeader()
+  const options: handleDownloadProps = useMemo(() => ({
+    canvasHeight,
+    canvasWidth,
+    backgroundColor,
+    isTransparent,
+    exportFormat,
+    fileName,
+  }), [
+    canvasHeight,
+    canvasWidth,
+    backgroundColor,
+    isTransparent,
+    exportFormat,
+    fileName,
+  ])
+
+  useEffect(() => {
+    if (setDownloadOptions) {
+      setDownloadOptions(options)
+    }
+  }, [options, setDownloadOptions])
 
   return (
     <Card className="h-full rounded-none border-0 flex flex-col p-0 gap-0">
