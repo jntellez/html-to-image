@@ -1,98 +1,44 @@
+import FeatureCarousel from "@/components/feature-carousel"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Code, ImageIcon, Zap, Download } from "lucide-react"
+import ExternalLink from "@/components/ui/external-link"
+import { TypographyH1, TypographyP } from "@/components/ui/typography"
 import { useNavigate } from "react-router-dom"
 
 export default function Home() {
   const navigate = useNavigate()
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-12">
+    <div className="h-[calc(100vh-61px)] flex flex-col">
       {/* Hero Section */}
-      <section className="text-center space-y-6 py-12">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-          Convierte <span className="text-primary">HTML</span> a Imagen
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Transforma tu código HTML y CSS en imágenes de alta calidad de forma rápida y sencilla. Perfecto para generar
-          previsualizaciones, capturas de pantalla y contenido visual.
-        </p>
+      <section className="flex flex-col items-center justify-center text-center px-4 space-y-8">
+        <TypographyH1 className="font-bold tracking-tighter mt-30">
+          Convert Code <br />
+          <span className="bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent pr-1">HTML to Image</span>
+        </TypographyH1>
+        <TypographyP className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          Transform your HTML and CSS code into high-quality images quickly and easily.<br />
+          The perfect tool for creating social media cards, code-driven logos, component previews, and beautiful screenshots.
+        </TypographyP>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" onClick={() => navigate("/playground")} className="text-lg px-8 cursor-pointer">
-            Comenzar Ahora
-            <ArrowRight className="ml-2 h-5 w-5" />
+          <Button
+            size="lg"
+            onClick={() => navigate("/playground")}
+            className="bg-gradient-to-r from-orange-500 to-amber-500 text-white cursor-pointer text-md px-6 py-3"
+          >
+            Get started
           </Button>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader>
-            <Code className="h-10 w-10 text-primary mb-2" />
-            <CardTitle>Editor en Vivo</CardTitle>
-            <CardDescription>Editor Monaco integrado con resaltado de sintaxis para HTML y CSS</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <ImageIcon className="h-10 w-10 text-primary mb-2" />
-            <CardTitle>Vista Previa</CardTitle>
-            <CardDescription>Visualiza tus cambios en tiempo real con nuestra vista previa interactiva</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <Zap className="h-10 w-10 text-primary mb-2" />
-            <CardTitle>Rápido y Eficiente</CardTitle>
-            <CardDescription>Conversión instantánea sin necesidad de configuración adicional</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <Download className="h-10 w-10 text-primary mb-2" />
-            <CardTitle>Múltiples Formatos</CardTitle>
-            <CardDescription>Exporta en PNG, JPG, WebP con opciones de calidad personalizables</CardDescription>
-          </CardHeader>
-        </Card>
+      <section className="flex flex-col items-center justify-center text-center py-20 max-w-3xl mx-auto">
+        <FeatureCarousel />
       </section>
 
-      {/* How it Works Section */}
-      <section className="space-y-8">
-        <h2 className="text-3xl font-bold text-center">¿Cómo Funciona?</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="text-center space-y-4">
-            <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto">
-              1
-            </div>
-            <h3 className="text-xl font-semibold">Escribe tu Código</h3>
-            <p className="text-muted-foreground">
-              Ingresa tu HTML y CSS en nuestro editor con autocompletado y resaltado de sintaxis
-            </p>
-          </div>
-
-          <div className="text-center space-y-4">
-            <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto">
-              2
-            </div>
-            <h3 className="text-xl font-semibold">Personaliza</h3>
-            <p className="text-muted-foreground">
-              Ajusta las dimensiones, fondo y opciones de exportación según tus necesidades
-            </p>
-          </div>
-
-          <div className="text-center space-y-4">
-            <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto">
-              3
-            </div>
-            <h3 className="text-xl font-semibold">Descarga</h3>
-            <p className="text-muted-foreground">Exporta tu imagen en el formato deseado con un solo clic</p>
-          </div>
-        </div>
-      </section>
+      {/* Footer Section */}
+      <footer className="mx-auto text-sm">
+        <ExternalLink href="https://github.com/jntellez">Made by jntellez</ExternalLink>
+      </footer>
     </div>
   )
 }
