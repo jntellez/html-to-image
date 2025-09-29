@@ -26,8 +26,8 @@ The application is built with modern web technologies that ensure performance an
 
 **UI & Design System**
 
-- **TailwindCSS** for utility-first styling [1](#1-0)
-- **Shadcn/ui** on top of Radix primitives for accessible components [2](#1-1)
+- **TailwindCSS** for utility-first styling
+- **Shadcn/ui** on top of Radix primitives for accessible components
 
 ## 🎯 Core Features
 
