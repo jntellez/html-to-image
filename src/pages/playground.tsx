@@ -5,11 +5,18 @@ import OptionsPanel from "@/components/playground/options-panel"
 import { Preview } from "@/components/playground/preview"
 import { useHeader } from "@/contexts/header-context"
 
-const defaultHtml = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #000; color: white; font-family: Arial, sans-serif;">
-  <svg width="75" height="65" viewBox="0 0 75 65" fill="none" style="margin-bottom: 20px;">
-    <path d="M37.5 0 L75 65 H0 Z" fill="white"/>
-  </svg>
-  <div style="font-size: 32px; font-weight: 600;">Hello, World</div>
+const defaultHtml = `<div class="container">
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+      <circle cx="9" cy="9" r="2"/>
+      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+    </svg>
+  </div>
+  <div class="text-group">
+    <p class="text">HTML to Image</p>
+    <p class="description">Transform your HTML and CSS code into high-quality images</p>
+  </div>
 </div>
 `;
 
@@ -17,6 +24,44 @@ const defaultCss = `body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(38, 19, 0, 1) 1%, rgba(0, 0, 0, 1) 52%);
+}
+
+.logo {
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(255, 105, 0, 1) 10%, rgba(255, 185, 0, 1) 100%);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.text {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.description {
+  color: #ccc;
+  font-size: 13px;
+  margin: 0;
 }
 `;
 
