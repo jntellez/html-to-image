@@ -20,19 +20,14 @@ const defaultHtml = `<div class="container">
 </div>
 `;
 
-const defaultCss = `body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.container {
+const defaultCss = `.container {
   display: flex;
   height: 100%;
   gap: 16px;
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle, rgba(38, 19, 0, 1) 1%, rgba(0, 0, 0, 1) 52%);
+  font-family: Arial, sans-serif;
 }
 
 .logo {
