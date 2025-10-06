@@ -31,7 +31,7 @@ export function Header() {
           <>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="secondary">
+                <Button className="cursor-pointer" variant="secondary">
                   <Download className="h-4 w-4" />
                   Export Image
                 </Button>
@@ -48,7 +48,7 @@ export function Header() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="ghost" size="icon" onClick={() => setIsVerticalLayout(!isVerticalLayout)}>
+            <Button className="cursor-pointer" variant="ghost" size="icon" onClick={() => setIsVerticalLayout(!isVerticalLayout)}>
               {isVerticalLayout ?
                 <Columns className="h-4 w-4" />
                 :
