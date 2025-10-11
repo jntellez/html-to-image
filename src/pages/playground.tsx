@@ -66,7 +66,7 @@ export default function Playground() {
   const { isVerticalLayout } = useHeader()
   const [canvasWidth, setCanvasWidth] = useState(800)
   const [canvasHeight, setCanvasHeight] = useState(400)
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff")
+  const [backgroundColor, setBackgroundColor] = useState("#000000")
   const [isTransparent, setIsTransparent] = useState(false)
   const [exportFormat, setExportFormat] = useState<"png" | "jpeg" | "svg">("png");
   const [fileName, setFileName] = useState("html-image")
