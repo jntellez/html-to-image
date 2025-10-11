@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from "react"
 import { Card } from "@/components/ui/card"
 import { Monitor } from "lucide-react"
 import { useDebouncedCallback } from "use-debounce"
+import { TypographyP } from "../ui/typography"
 
 interface PreviewPanelProps {
   htmlCode: string
@@ -134,9 +135,9 @@ export function Preview({
             <Monitor className="h-4 w-4" />
             Preview
           </h3>
-          <p className="text-xs text-muted-foreground">
+          <TypographyP className="text-xs text-muted-foreground">
             {canvasWidth}×{canvasHeight}px
-          </p>
+          </TypographyP>
         </div>
 
         <div
