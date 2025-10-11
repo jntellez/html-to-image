@@ -46,7 +46,7 @@ export default function FeatureCarousel() {
             className="flex-shrink-0 w-54 flex flex-col justify-center items-center text-center"
           >
             {feature.icon}
-            <TypographyP className="font-semibold">{feature.text}</TypographyP>
+            <TypographyP className="dark:font-semibold">{feature.text}</TypographyP>
           </div>
         ))}
       </div>
