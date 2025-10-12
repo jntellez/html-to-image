@@ -63,6 +63,8 @@ export default function OptionsPanel({
     }
   }, [options, setDownloadOptions])
 
+  const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+
   return (
     <Card className="h-full rounded-none border-0 flex flex-col p-0 gap-0">
       <div className="px-4 py-3 border-b bg-muted/50">
@@ -95,7 +97,10 @@ export default function OptionsPanel({
                     id="width"
                     type="number"
                     value={canvasWidth}
-                    onChange={(e) => onCanvasWidthChange(Number(e.target.value))}
+                    onFocus={(e) => e.target.select()}
+                    onChange={(e) => {
+                      onCanvasWidthChange(clamp(Number(e.target.value), 1, 4000))
+                    }}
                     className="h-8"
                     min="100"
                     max="4000"
@@ -109,7 +114,10 @@ export default function OptionsPanel({
                     id="height"
                     type="number"
                     value={canvasHeight}
-                    onChange={(e) => onCanvasHeightChange(Number(e.target.value))}
+                    onFocus={(e) => e.target.select()}
+                    onChange={(e) => {
+                      onCanvasHeightChange(clamp(Number(e.target.value), 1, 4000))
+                    }}
                     className="h-8"
                     min="100"
                     max="4000"

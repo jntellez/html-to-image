@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Columns, Download, Image, Rows } from "lucide-react"
 import { handleDownload } from "@/lib/html-to-image";
+import { TypographyH1, TypographyP } from "./ui/typography";
 
 export function Header() {
   const { isVerticalLayout, setIsVerticalLayout, downloadOptions } = useHeader()
@@ -23,7 +24,11 @@ export function Header() {
         <div className="h-8 w-8 flex items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-amber-400 text-white shadow-md">
           <Image className="h-4 w-4" />
         </div>
-        <span>HTML to Image</span>
+        {
+          isPlaygroundPage
+            ? <TypographyH1 className="text-md md:text-md font-bold tracking-normal">HTML to Image</TypographyH1>
+            : <TypographyP>HTML to Image</TypographyP>
+        }
       </Link>
 
       <nav className="flex items-center gap-2">

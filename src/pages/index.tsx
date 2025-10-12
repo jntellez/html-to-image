@@ -3,10 +3,15 @@ import { Button } from "@/components/ui/button"
 import ExternalLink from "@/components/ui/external-link"
 import { TypographyH1, TypographyP } from "@/components/ui/typography"
 import { ExternalLinkIcon } from "lucide-react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function Home() {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    document.title = 'HTML to Image';
+  }, []);
 
   return (
     <main className="h-[calc(100vh-61px)] flex items-center justify-center">
