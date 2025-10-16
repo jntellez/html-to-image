@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
 import { EditorLayout } from "@/components/playground/editor-layout"
 import OptionsPanel from "@/components/playground/options-panel"
@@ -70,6 +70,10 @@ export default function Playground() {
   const [isTransparent, setIsTransparent] = useState(false)
   const [exportFormat, setExportFormat] = useState<"png" | "jpeg" | "svg">("png");
   const [fileName, setFileName] = useState("html-image")
+
+  useEffect(() => {
+    document.title = 'HTML to Image - Playground';
+  }, []);
 
   return (
     <div className="h-[calc(100vh-61px)] flex flex-col">
