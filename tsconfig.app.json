@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     /* Resolve paths */
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
