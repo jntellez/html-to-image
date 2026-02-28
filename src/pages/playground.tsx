@@ -72,7 +72,9 @@ export default function Playground() {
   const [fileName, setFileName] = useState("html-image")
 
   useEffect(() => {
-    document.title = 'HTML to Image - Playground';
+    document.title = 'HTML to Image Playground - Live Editor & Export to PNG, JPEG, SVG';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Interactive playground to write HTML/CSS code, preview it in real time, and export it as PNG, JPEG, or SVG images.');
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://htmltoimage3.vercel.app/playground');
   }, []);
 
   return (

@@ -10,7 +10,9 @@ export default function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    document.title = 'HTML to Image';
+    document.title = 'HTML to Image - Convert HTML/CSS to PNG, JPEG, SVG Online';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free online tool to convert HTML and CSS code into high-quality PNG, JPEG, or SVG images. Preview in real time and export instantly.');
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://htmltoimage3.vercel.app/');
   }, []);
 
   return (

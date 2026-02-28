@@ -3,12 +3,16 @@
   
   <url>
     <loc>https://htmltoimage3.vercel.app/</loc>
-    <lastmod>2025-10-11</lastmod> 
-    <priority>1.0</priority> </url>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
   
   <url>
     <loc>https://htmltoimage3.vercel.app/playground</loc>
-    <lastmod>2025-10-11</lastmod>
-    <priority>0.9</priority> </url>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
 </urlset>
